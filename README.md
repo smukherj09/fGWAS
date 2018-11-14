@@ -51,6 +51,14 @@ R CMD INSTALL pkg
 >install_github("wzhy2000/fGWAS/pkg")
 ```
 
+GeABEL is necessary in the current version. If it can not be installed by the command 'install.packages', please install it from GitHub:
+
+```
+> library(devtools)
+> install_github("cran/GenABEL.data")
+> install_github("cran/GenABEL")
+```
+
 2) Install from pre-compile package 
 
 >1 Please download windows package from (https://github.com/wzhy2000/fGWAS/raw/master/windows/fGWAS.zip)
