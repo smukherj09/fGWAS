@@ -59,7 +59,17 @@ GeABEL is necessary in the current version. If it can not be installed by the co
 > install_github("cran/GenABEL")
 ```
 
-2) Install from pre-compile package 
+MVTNORM is a dependend package and now unavailable for new R(maybe>3.5.0), please download it from CRAN and then install it using install.packages command;
+https://cran.r-project.org/web/packages/mvtnorm/index.html
+
+MSBVAR also is not available for new R(maybe>3.5.0) please using the following command to install from GitHub
+
+```
+> library("devtools");
+> install_github("cran/MSBVAR")
+```
+
+2) Install from pre-compile package in Windows
 
 >1 Please download windows package from (https://github.com/wzhy2000/fGWAS/raw/master/windows/fGWAS.zip)
 
