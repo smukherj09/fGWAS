@@ -1,4 +1,4 @@
-# fGWAS/test
+# fGWAS
 
 The data analysis package for Functional Genome-wide Association Study(fGWAS)
 
@@ -51,7 +51,25 @@ R CMD INSTALL pkg
 >install_github("wzhy2000/fGWAS/pkg")
 ```
 
-2) Install from pre-compile package 
+GeABEL is necessary in the current version. If it can not be installed by the command 'install.packages', please install it from GitHub:
+
+```
+> library(devtools)
+> install_github("cran/GenABEL.data")
+> install_github("cran/GenABEL")
+```
+
+MVTNORM is a dependend package and now unavailable for new R(maybe>3.5.0), please download it from CRAN and then install it using install.packages command;
+https://cran.r-project.org/web/packages/mvtnorm/index.html
+
+MSBVAR also is not available for new R(maybe>3.5.0) please using the following command to install from GitHub
+
+```
+> library("devtools");
+> install_github("cran/MSBVAR")
+```
+
+2) Install from pre-compile package in Windows
 
 >1 Please download windows package from (https://github.com/wzhy2000/fGWAS/raw/master/windows/fGWAS.zip)
 
