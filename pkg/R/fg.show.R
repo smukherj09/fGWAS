@@ -554,7 +554,7 @@ adjust_factor<-function(result)
 	return(result);
 }
 
-optim_factor<-function(result)
+optim_factor1<-function(result)
 {
     library("GenABEL");
     lik.chisq<-function(par)
@@ -562,20 +562,63 @@ optim_factor<-function(result)
         df = par[1]
         factor=median(LR)/qchisq(0.5, df=df);
         pv =  pchisq( LR/factor, df=df, log=F, lower.tail=F);
+        pv <- pv[ !is.na(pv) & pv > 0 ];
+        
         r = estlambda(pv)$estimate;
     
         return( abs(1-r) );
     }
 
     LR <- result$LR;
+    LR <- LR[ !is.na(LR) & LR>=0 ];
+    LR <- LR[LR<quantile(LR, 0.98)];
+    LR <- LR[sample(1:NROW(LR), round(NROW(LR)/3))];
     par <- optim(3, fn=lik.chisq, method="Brent", lower=0.1, upper=10, control=list(maxit=1000));
     if(par$convergence!=0)
        stop(paste("Optim function is failed to get convergence, error=", par$convergence, "."));
 
     df=par$par
     factor=median(LR)/qchisq(0.5, df=df);
-    pv =  pchisq( LR/factor, df=df, log=F, lower.tail=F);
+cat("df=", df, "factor=", factor, "\n");    
+    pv =  pchisq( result$LR/factor, df=df, log=F, lower.tail=F);
     
+    result$pv <- pv;
+    return(result);
+}
+
+optim_factor<-function(result)
+{
+    library("GenABEL");
+    lik.chisq<-function(par)
+    {
+        factor = par[1]
+        df = par[2]
+        pv =  pchisq( LR/factor, df=df, log=F, lower.tail=F);
+        pv <- pv[ !is.na(pv) & pv > 0 ];
+        
+        r = estlambda(pv)$estimate;
+
+#cat(par[1], par[2], r, "\n");    
+        return( abs(1-r) );
+    }
+
+    LR <- result$LR;
+    LR <- LR[ !is.na(LR) & LR>=0 ];
+    LR <- LR[LR<quantile(LR, 0.9995)];
+    #LR <- LR[sample(1:NROW(LR), round(NROW(LR)/3))];
+    
+    df = 3;
+    factor = median(LR)/qchisq(0.5, df=df);
+    par <- optim(c( factor, df ), fn=lik.chisq, method="BFGS", control=list(maxit=250));
+    if(par$convergence!=0)
+       stop(paste("Optim function is failed to get convergence, error=", par$convergence, "."));
+
+    factor=par$par[1]
+    df=par$par[2]
+    pv =  pchisq( result$LR/factor, df=df, log=F, lower.tail=F);
+    r = estlambda(pv)$estimate;
+    
+cat("df=", df, "factor=", factor, "lambda=", r, "\n");    
     result$pv <- pv;
     return(result);
 }
