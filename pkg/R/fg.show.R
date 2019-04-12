@@ -593,6 +593,9 @@ optim_factor<-function(result)
     {
         factor = par[1]
         df = par[2]
+        if( factor<=0 || df<=0)
+          return(NaN);
+
         pv =  pchisq( LR/factor, df=df, log=F, lower.tail=F);
         pv <- pv[ !is.na(pv) & pv > 0 ];
         
