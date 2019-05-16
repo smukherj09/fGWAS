@@ -59,7 +59,7 @@ proc_mle<-function( index, snp.info, snp.vec, obj.phe, intercept=F, options=list
 	default_options[names(options)]= options;
 	options = default_options;
 
-	gen.par <- max(snp.vec, na.rm=T) - min(snp.vec, na.rm=T) + 1;
+	gen.par <- length(unique(snp.vec[!is.na(snp.vec)]));
 
 	pheY <- obj.phe$pheY;
 	pheT <- obj.phe$pheT;
