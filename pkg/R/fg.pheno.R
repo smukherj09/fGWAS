@@ -95,7 +95,7 @@ check_pheno_file<-function( file.phe.long, file.phe.cov, file.phe.time, verbose=
 			if(verbose) 
 			{
 				cat("* Individuals =", NROW(phe.cov), "\n");
-				cat("* Covariate =", NCOL(phe.cov), "\n");
+				cat("* Covariates =", NCOL(phe.cov), "\n");
 				cat("* Mean =",  colMeans(phe.cov, na.rm=T), "\n");
 				cat("* SD =",    colSds(phe.cov, na.rm=T), "\n");
 				cat("  First 5 Items:\n");

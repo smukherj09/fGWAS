@@ -194,7 +194,7 @@ fg_simple_getPCA<-function( objref, plink.path )
 {
 	snp.mat <- objref$reader$get_snpmat( NULL, impute=F, allel=F)$snpmat;
 	snp.info <- objref$reader$get_snpinfo(NULL );
-    colnames(snp.info) <- c("SNP","CHR","POS","A1","A2");
+    	colnames(snp.info) <- c("SNP","CHR","POS","A1","A2");
 
 	snp.mat <- snp.mat[, with(snp.info, order(CHR, POS))]
 	snp.info <- snp.info[ with(snp.info, order(CHR, POS)),]
@@ -218,7 +218,8 @@ fg_simple_getPCA<-function( objref, plink.path )
 	unlink( paste(snp.file.base, c("bim", "bed", "fam", "pca.eigenvec"), sep=".") );
 
 	rownames(tb) <- tb[,1];
-    colnames(tb) <- paste0("PCA", 1:NCOL(tb) );
+	tb <- tb[, -c(1,2)];
+    	colnames(tb) <- paste0("PCA", 1:NCOL(tb) );
 
-	return(tb[, -c(1,2)]);
+	return(tb);
 }
